@@ -1,3 +1,5 @@
+import processing.net.*;
+
 /* @pjs globalKeyEvents=true; 
  */
 
@@ -19,6 +21,7 @@
   MotherShip motherShip;
   ArrayList<Ship> livesFeedBck;
   ArrayList<Sheild> sheilds;
+  Server server;
 
    void setup() {
     size(500, 430);
@@ -27,10 +30,19 @@
     initGame();
     filtre = loadImage("filtrejeu.tga");
     fontA = loadFont("CourierNew36.vlw");
+    server = new Server(this, 5204);
   }
 
    void draw() {
-    displayScore();
+     Client client = server.available();
+     
+     if(client != null) {
+       char c = client.readChar();
+       if (c == 'l') ship.move(-20);
+       if (c == 'r') ship.move(20);
+       if (c == ' ') if (!laser.aLive) laser = new Laser(ship.location.x);
+     }
+     displayScore();
     if (conf.lives <= 0) {
       gameOver();
       return;
