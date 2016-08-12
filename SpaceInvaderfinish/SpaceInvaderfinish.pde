@@ -38,9 +38,9 @@ import processing.net.*;
      
      if(client != null) {
        char c = client.readChar();
-       if (c == 'l') ship.move(-20);
-       if (c == 'r') ship.move(20);
-       if (c == ' ') if (!laser.aLive) laser = new Laser(ship.location.x);
+       if (c == '1') ship.move(-20);
+       if (c == '2') ship.move(20);
+       if (c == '3') if (!laser.aLive) laser = new Laser(ship.location.x);
      }
      displayScore();
     if (conf.lives <= 0) {
